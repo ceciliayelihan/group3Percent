@@ -3,13 +3,17 @@ Sprite girl;
 Sprite boy;
 PImage[]animation_girl;
 PImage[]animation_boy;
-int imgCt = 12;
-Boolean move =false;
-Boolean girltf=true;
+PImage[]animation;
 PImage boy_choose;
 PImage girl_choose;
 PImage name;
 PImage choose;
+int imgCt = 12;
+Boolean move =false;//level one move?
+Boolean girltf=true;//choose character in the beginning 
+Boolean start_btn = false; //start or scoreboard in main screen
+Boolean scoreboard_btn = false;//start or scoreboard in main screen
+Boolean go_btn = false;
 
 
 //sound and GUI
@@ -21,6 +25,7 @@ PImage level1background;
 Boolean mutePressed=false;
 Boolean pausePressed=false;
 SoundFile backgroundmusic;
+
 void setup(){
   PImage life =loadImage("life.png");
   PImage start =loadImage("start.png");
@@ -58,7 +63,7 @@ void setup(){
   backgroundmusic.play();
 }
 void draw(){
-  if (mouseX>325&&mouseX<(325+150)&&mouseY<(370+60)&&mouseY>370 && mousePressed == true){// if press start
+  if (start_btn == false && mouseX>325 &&mouseX<(325+150)&&mouseY<(370+60)&&mouseY>370 && mousePressed == true){// if press start
     PImage road =loadImage("road.png");
     image(road,0,0,800,700);
     PImage girl_choose =loadImage("girl.png");
@@ -71,34 +76,38 @@ void draw(){
     image(name,320,425,150,50);
     PImage go =loadImage("go.png");
     image(go,350,600,100,100);
-    //System.out.println("start");
-  if (mouseX>150&&mouseX<(150+200)&&mouseY<(200+200)&&mouseY>200 && mousePressed== true){//choose girl
+    start_btn = true;
+  }
+  
+  if (go_btn == false&&start_btn == true && mouseX>150&&mouseX<(150+200)&&mouseY<(200+200)&&mouseY>200 && mousePressed== true){//choose girl
      noFill();
      stroke(0);
      strokeWeight(5);
      rect(150,200,200,200);
-     girltf=true;             
+     girltf=true; 
+     
     }
-    System.out.println("start");
-   if (mouseX>450&&mouseX<(450+150)&&mouseY<(245+150)&&mouseY>245&& mousePressed== true){//choose boy
+    //System.out.println(start_btn);
+   if (go_btn == false&&start_btn == true&&mouseX>450&&mouseX<(450+150)&&mouseY<(245+150)&&mouseY>245&& mousePressed== true){//choose boy
       noFill();
       stroke(0);
       strokeWeight(5);
       rect(450,200,200,200);
-      girltf=false;              
+      girltf=false;
+      //System.out.println(go_btn);
      }
-   if (mouseX>250&&mouseX<450 && mouseY>500 &&mouseY<700 && mousePressed== true){ // press go button
-      move = true; 
-      System.out.println("get there");
+   if (go_btn == false&&start_btn ==true&&mouseX>250&&mouseX<450 && mouseY>500 &&mouseY<700 && mousePressed== true){ // press go button
+      move = true;
+      go_btn =true;
      }
- }
  //System.out.println(move);
- if (mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
+ if (scoreboard_btn ==false&&mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
        if (mousePressed == true) {
          fill(255);
          rect(0,0,800,700);
          PImage scoreboard =loadImage("scoretable.png");
          image(scoreboard,280,80,280,112);
+         scoreboard_btn = true;
        }
  }
   if (move==true){
