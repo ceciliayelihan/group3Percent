@@ -1,4 +1,4 @@
-PImage life =loadImage("life.png");
+//PImage life =loadImage("life.png");
 
 class User{
   int points, health, time;
@@ -22,7 +22,7 @@ class User{
   
   void displayHealth() {
     for (int i=0; i<this.health; i++) {
-      image(life,10+i*60,10);
+      //image(life,10+i*60,10);
     }
   }
   
