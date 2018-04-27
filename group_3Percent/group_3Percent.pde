@@ -85,8 +85,8 @@ void draw(){
     image(choose,100,100,600,100);
     PImage name =loadImage("name.png");
     image(name,320,425,150,50);
-    PImage go =loadImage("go.png");
-    image(go,350,600,100,100);
+    PImage go =loadImage("savebegin.png");
+    image(go,200,600,400,40);
     start_btn = true;
   }
   
@@ -117,7 +117,7 @@ void draw(){
      }
    }
    
-   if (go_btn == false&&start_btn ==true&&mouseX>250&&mouseX<450 && mouseY>500 &&mouseY<700 && mousePressed== true){ // press go button
+   if (go_btn == false&&start_btn ==true&&mouseX>200&&mouseX<600 && mouseY>600 &&mouseY<640 && mousePressed== true){ // press go button
       move = true;
       go_btn =true;
       
@@ -128,7 +128,7 @@ void draw(){
       user=new User(userName,life,t1,lvl);
      }
  //System.out.println(move);
- if (start_btn==false&&scoreboard_btn ==false&&mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
+ if (scoreboard_btn ==false&&start_btn==false&&mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
        if (mousePressed == true) {
          fill(255);
          rect(0,0,800,700);
@@ -142,7 +142,7 @@ void draw(){
  if (scoreboard_btn ==true&&mouseX>40&&mouseX<(40+70)&&mouseY<(40+30)&&mouseY>40){//press score table in start
        if (mousePressed == true) {
          scoreboard_btn=false;
-         PImage life =loadImage("life.png");
+         //life =loadImage("life.png");
          PImage start =loadImage("start.png");
          PImage score =loadImage("score.png");
          PImage girlt =loadImage("girl002.png");
