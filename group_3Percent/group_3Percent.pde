@@ -58,49 +58,49 @@ void setup(){
   backgroundmusic.play();
 }
 void draw(){
-  if (mouseX>325&&mouseX<(325+150)&&mouseY<(370+60)&&mouseY>370){
-        if (mousePressed == true) {
-          //move=true;
-          PImage road =loadImage("road.png");
-          image(road,0,0,800,700);
-          PImage girl_choose =loadImage("girl.png");
-          PImage boy_choose =loadImage("boy.png");
-          image(girl_choose,150,200,200,200);
-          image(boy_choose,450,245,150,150);
-          PImage choose =loadImage("choose.png");
-          image(choose,100,100,600,100);
-          PImage name =loadImage("name.png");
-          image(name,320,425,150,50);
-          System.out.println(mouseX);
-          if (mouseX>150&&mouseX<(150+200)&&mouseY<(200+200)&&mouseY>200){ //<>//
-            if (mousePressed == true) {
-              noFill();
-              stroke(0);
-              strokeWeight(5);
-              rect(150,200,200,200);
-              girltf=true;
-   
-            }
-          }
-        if (mouseX>450&&mouseX<(450+150)&&mouseY<(245+150)&&mouseY>245){
-            if (mousePressed == true) {
-              noFill();
-              stroke(0);
-              strokeWeight(5);
-              rect(450,200,200,200);
-              girltf=false;
-            }
-        }
-  }
+  if (mouseX>325&&mouseX<(325+150)&&mouseY<(370+60)&&mouseY>370 && mousePressed == true){// if press start
+    PImage road =loadImage("road.png");
+    image(road,0,0,800,700);
+    PImage girl_choose =loadImage("girl.png");
+    PImage boy_choose =loadImage("boy.png");
+    image(girl_choose,150,200,200,200);
+    image(boy_choose,450,245,150,150);
+    PImage choose =loadImage("choose.png");
+    image(choose,100,100,600,100);
+    PImage name =loadImage("name.png");
+    image(name,320,425,150,50);
+    PImage go =loadImage("go.png");
+    image(go,350,600,100,100);
+    //System.out.println("start");
+  if (mouseX>150&&mouseX<(150+200)&&mouseY<(200+200)&&mouseY>200 && mousePressed== true){//choose girl
+     noFill();
+     stroke(0);
+     strokeWeight(5);
+     rect(150,200,200,200);
+     girltf=true;             
+    }
+    System.out.println("start");
+   if (mouseX>450&&mouseX<(450+150)&&mouseY<(245+150)&&mouseY>245&& mousePressed== true){//choose boy
+      noFill();
+      stroke(0);
+      strokeWeight(5);
+      rect(450,200,200,200);
+      girltf=false;              
+     }
+   if (mouseX>250&&mouseX<450 && mouseY>500 &&mouseY<700 && mousePressed== true){ // press go button
+      move = true; 
+      System.out.println("get there");
+     }
  }
-  if (mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){
-        if (mousePressed == true) {
-          fill(255);
-          rect(0,0,800,700);
-          PImage scoreboard =loadImage("scoretable.png");
-          image(scoreboard,280,80,280,112);
-        }
-  }
+ //System.out.println(move);
+ if (mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
+       if (mousePressed == true) {
+         fill(255);
+         rect(0,0,800,700);
+         PImage scoreboard =loadImage("scoretable.png");
+         image(scoreboard,280,80,280,112);
+       }
+ }
   if (move==true){
     sound = loadImage("sound.png");
     mute = loadImage("mute.png");
