@@ -133,8 +133,29 @@ void draw(){
          fill(255);
          rect(0,0,800,700);
          PImage scoreboard =loadImage("scoretable.png");
-         image(scoreboard,280,80,280,112);
+         image(scoreboard,180,80,440,160);
          scoreboard_btn = true;
+         PImage back =loadImage("back.png");
+         image(back,40,40,70,30);
+       }
+ }
+ if (scoreboard_btn ==true&&mouseX>40&&mouseX<(40+70)&&mouseY<(40+30)&&mouseY>40){//press score table in start
+       if (mousePressed == true) {
+         scoreboard_btn=false;
+         PImage life =loadImage("life.png");
+         PImage start =loadImage("start.png");
+         PImage score =loadImage("score.png");
+         PImage girlt =loadImage("girl002.png");
+         PImage title =loadImage("title.png");
+         PImage road =loadImage("road.png");
+         image(road,0,0,800,700);
+         image(life,50,50,50,50);
+         image(life,110,50,50,50);
+         image(life,170,50,50,50);
+         image(title,180,200,450,90);
+         image(start,325,370,150,60);
+         image(score,325,475,150,60);
+         image(girlt,255,370,60,60);
        }
  }
   if (move==true){
