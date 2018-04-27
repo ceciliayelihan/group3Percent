@@ -15,17 +15,20 @@ Boolean girltf=true;//choose character in the beginning
 Boolean start_btn = false; //start or scoreboard in main screen
 Boolean scoreboard_btn = false;//start or scoreboard in main screen
 Boolean go_btn = false;
+int lvl,t1;
 
+//textField
+String userName = "";
 
 //sound and GUI
-PImage sound;
-PImage mute;
-PImage play;
-PImage pause;
+PImage sound, mute, play, pause;
 PImage level1background;
 Boolean mutePressed=false;
 Boolean pausePressed=false;
 SoundFile backgroundmusic;
+
+//create User instance
+User user;
 
 void setup(){
   PImage life =loadImage("life.png");
@@ -70,6 +73,7 @@ void setup(){
   backgroundmusic.play();
 }
 void draw(){
+  PImage life =loadImage("life.png");
   if (start_btn == false && mouseX>325 &&mouseX<(325+150)&&mouseY<(370+60)&&mouseY>370 && mousePressed == true){// if press start
     PImage road =loadImage("road.png");
     image(road,0,0,800,700);
@@ -103,9 +107,25 @@ void draw(){
       girltf=false;
       //System.out.println(go_btn);
      }
+     
+     //text name
+   if (go_btn == false && start_btn ==true) {
+     if (keyPressed && (key >= 'A' && key <= 'z') || key == ' ') {
+       textSize(30);
+       text(userName,320,530);
+       userName = userName + key;
+     }
+   }
+   
    if (go_btn == false&&start_btn ==true&&mouseX>250&&mouseX<450 && mouseY>500 &&mouseY<700 && mousePressed== true){ // press go button
       move = true;
       go_btn =true;
+      
+      //lvl 1 & start time
+      lvl = 1;
+      t1 = millis()/1000;
+      //create user
+      user=new User(userName,life,t1,lvl);
      }
  //System.out.println(move);
  if (scoreboard_btn ==false&&mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
@@ -171,5 +191,11 @@ void draw(){
     mutePressed=false;
     backgroundmusic.play();
   }
+  //test user
+  user.countTime();
+  user.displayHealth();
+  user.displayTime();
+  //user.decreaseHealth();
+  //user.reset();
  }
 }
