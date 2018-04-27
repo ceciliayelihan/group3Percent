@@ -256,8 +256,7 @@ void draw(){
   user.displayTime();
   //user.decreaseHealth();
   //user.reset();
- }
-   //display cars-right
+     //display cars-right
   if (carArray1.right_offScreen()==true){
     car1.x0=0;
     carArray1 = new CarArray(1,car1);
@@ -298,4 +297,5 @@ void draw(){
   carArray6.display();
   carArray7.display();
   carArray8.display();
+ }
 }
