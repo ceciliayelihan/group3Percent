@@ -29,7 +29,26 @@ SoundFile backgroundmusic;
 
 //create User instance
 User user;
-
+// Car
+PImage car_right;
+// car facing right
+Car car1;//car 1 and car2 are same, car_right
+Car car2;
+CarArray carArray1;
+CarArray carArray2;
+Car car3;
+Car car4;
+CarArray carArray3;
+CarArray carArray4;
+//car facing left
+Car car5;
+Car car6;
+CarArray carArray5;
+CarArray carArray6;
+Car car7;
+Car car8;
+CarArray carArray7;
+CarArray carArray8;
 void setup(){
   PImage life =loadImage("life.png");
   PImage start =loadImage("start.png");
@@ -71,6 +90,25 @@ void setup(){
   //sound and gui
   backgroundmusic = new SoundFile(this,"gamemusic.mp3");
   backgroundmusic.play();
+  //car facing right
+  PImage car_right = loadImage("car_right.png");
+  car1 = new Car(car_right,0,500,10,-200,100); 
+  car2 = new Car(car_right,-1000,500,10,-200,100); 
+  carArray1 = new CarArray(1,car1);
+  carArray2 = new CarArray(1,car2);
+  car3 = new Car(car_right,0,350,20,-200,100); 
+  car4 = new Car(car_right,-1000,350,20,-200,100); 
+  carArray3 = new CarArray(1,car3);
+  carArray4 = new CarArray(1,car4);
+  PImage car_left = loadImage("car_left.png");
+  car5 = new Car(car_left,800,550,-5,200,70); 
+  car6 = new Car(car_left,1800,550,-5,200,70); 
+  carArray5 = new CarArray(1,car5);
+  carArray6 = new CarArray(1,car6);
+  car7 = new Car(car_left,800,400,-15,200,70); 
+  car8 = new Car(car_left,1800,400,-15,200,70); 
+  carArray7 = new CarArray(1,car7);
+  carArray8 = new CarArray(1,car8);
 }
 void draw(){
   PImage life =loadImage("life.png");
@@ -219,4 +257,45 @@ void draw(){
   //user.decreaseHealth();
   //user.reset();
  }
+   //display cars-right
+  if (carArray1.right_offScreen()==true){
+    car1.x0=0;
+    carArray1 = new CarArray(1,car1);
+  }
+  if (carArray2.right_offScreen()==true){
+    car2.x0=0;
+    carArray2 = new CarArray(1,car2);
+  }
+    if (carArray3.right_offScreen()==true){
+    car3.x0=0;
+    carArray3 = new CarArray(1,car3);
+  }
+  if (carArray4.right_offScreen()==true){
+    car4.x0=800;
+    carArray4 = new CarArray(1,car4);
+  }
+    if (carArray5.left_offScreen()==true){
+    car5.x0=800;
+    carArray5 = new CarArray(1,car5);
+  }
+  if (carArray6.left_offScreen()==true){
+    car6.x0=800;
+    carArray6 = new CarArray(1,car6);
+  }
+    if (carArray7.left_offScreen()==true){
+    car7.x0=800;
+    carArray7 = new CarArray(1,car7);
+  }
+  if (carArray8.left_offScreen()==true){
+    car8.x0=800;
+    carArray8 = new CarArray(1,car8);
+  }
+  carArray1.display();
+  carArray2.display();
+  carArray3.display();
+  carArray4.display();
+  carArray5.display();
+  carArray6.display();
+  carArray7.display();
+  carArray8.display();
 }
