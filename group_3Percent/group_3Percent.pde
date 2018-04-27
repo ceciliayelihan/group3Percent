@@ -1,6 +1,7 @@
 import processing.sound.*;
 Sprite girl;
 Sprite boy;
+Boat b1,b2,b3,b4;
 PImage[]animation_girl;
 PImage[]animation_boy;
 PImage[]animation;
@@ -41,6 +42,12 @@ void setup(){
   image(start,325,370,150,60);
   image(score,325,475,150,60);
   image(girlt,255,370,60,60);
+  PImage boat = loadImage("boat.png");
+  PImage leaf = loadImage("leaf.png");
+  b1 = new Boat(0,50,20,boat,150,40);
+  b2 = new Boat(800,105,-20,leaf,100,60);
+  b3 = new Boat(50,160,20,boat,150,40);
+  b4 = new Boat(750,215,-20,leaf,100,60);
   frameRate(10);
   size(800,700);
   animation_girl = new PImage[12];
@@ -125,6 +132,14 @@ void draw(){
     level1background = loadImage("lvl1background.png");
     imageMode(CORNER);
     image(level1background,0,0,800,700);
+    b1.display();
+    b1.move();
+    b2.display();
+    b2.move();
+    b3.display();
+    b3.move();
+    b4.display();
+    b4.move();
     if(girltf ==true){
       girl.display();
       girl.move();
