@@ -128,7 +128,7 @@ void draw(){
       user=new User(userName,life,t1,lvl);
      }
  //System.out.println(move);
- if (scoreboard_btn ==false&&mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
+ if (start_btn==false&&scoreboard_btn ==false&&mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
        if (mousePressed == true) {
          fill(255);
          rect(0,0,800,700);
