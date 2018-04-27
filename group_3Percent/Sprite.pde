@@ -16,28 +16,28 @@ class Sprite{
     if (keyPressed == true){
       if (key == CODED){
         if (keyCode == UP){
-          this.y = this.y -20;
+          this.y = this.y -40;
           this.up = true;
           this.down = false;
           this.left = false;
           this.right = false;
       }
          if (keyCode == DOWN){
-          this.y = this.y + 20;
+          this.y = this.y + 40;
           this.up = false;
           this.down = true;
           this.left = false;
           this.right = false;
       }
          if (keyCode == LEFT){
-          this.x = this.x -20;
+          this.x = this.x -40;
           this.up = false;
           this.down = false;
           this.left = true;
           this.right = false;
       }
         if (keyCode == RIGHT){
-          this.x = this.x +20;
+          this.x = this.x +40;
           this.up = false;
           this.down = false;
           this.left = false;
