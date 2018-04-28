@@ -15,6 +15,7 @@ Boolean girltf=true;//choose character in the beginning
 Boolean start_btn = false; //start or scoreboard in main screen
 Boolean scoreboard_btn = false;//start or scoreboard in main screen
 Boolean go_btn = false;
+Boolean on = false;
 int lvl,t1;
 
 //textField
@@ -69,10 +70,10 @@ crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
   image(girlt,255,370,60,60);
   PImage boat = loadImage("boat.png");
   PImage leaf = loadImage("leaf.png");
-  b1 = new Boat(0,50,20,boat,150,40);
-  b2 = new Boat(800,105,-20,leaf,100,60);
-  b3 = new Boat(50,160,20,boat,150,40);
-  b4 = new Boat(750,215,-20,leaf,100,60);
+  b1 = new Boat(0,50,10,boat,100,40);
+  b2 = new Boat(800,105,-10,leaf,100,55);
+  b3 = new Boat(50,160,10,boat,100,40);
+  b4 = new Boat(750,215,-15,leaf,100,55);
   frameRate(10);
   size(800,700);
   animation_girl = new PImage[12];
@@ -236,7 +237,38 @@ void draw(){
     b4.move();
     if(girltf ==true){
       girl.display();
-      girl.move();
+      girl.move();      
+      if (girl.y<(215+55)&&girl.y>(215)){
+        on=false;
+        for(int i = 0; i < 4; i++){
+          if ( (girl.x>(b4.x+i*200) && girl.x<(b4.x+i*200+b3.l)) || (girl.x>(b4.x+i*200-800) && girl.x<(b4.x+i*200+b4.l-800))){
+            on = true; 
+          }
+        }
+        if (on==true){
+           girl.x+=-15;
+        }
+        if (on==false){
+          girl.x=400;
+          girl.y=280;
+        }
+      }
+      if (girl.y<=(160+40)&&girl.y>=(160)){
+        on=false;
+        for(int i = 0; i < 4; i++){
+          if ((girl.x>(b3.x+i*200) && girl.x<(b3.x+i*200+b3.l)) || (girl.x>(b3.x+i*200-800) && girl.x<(b3.x+i*200+b3.l-800))){
+            on = true;
+          }
+        }
+        if (on==true){
+          /*Add score*/
+           girl.x+=10;
+        }
+        if (on==false){
+          girl.x=400;
+          girl.y=280;
+        }
+      }
     }
     if(girltf ==false){
       boy.display();
