@@ -29,6 +29,8 @@ SoundFile backgroundmusic;
 
 //create User instance
 User user;
+//crab
+CrabLegs crab;
 // Car
 PImage car_right;
 // car facing right
@@ -50,6 +52,7 @@ Car car8;
 CarArray carArray7;
 CarArray carArray8;
 void setup(){
+crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
   PImage life =loadImage("life.png");
   PImage start =loadImage("start.png");
   PImage score =loadImage("score.png");
@@ -129,22 +132,29 @@ void draw(){
   }
   
   if (go_btn == false&&start_btn == true && mouseX>150&&mouseX<(150+200)&&mouseY<(200+200)&&mouseY>200 && mousePressed== true){//choose girl
+     girltf=true; 
+    }
+    
+   if (go_btn == false&&start_btn == true&&mouseX>450&&mouseX<(450+150)&&mouseY<(245+150)&&mouseY>245&& mousePressed== true){//choose boy
+      girltf=false;
+   }
+   
+   if (start_btn==true && go_btn ==false && girltf==true) {
      noFill();
      stroke(0);
      strokeWeight(5);
      rect(150,200,200,200);
-     girltf=true; 
-     
-    }
-    //System.out.println(start_btn);
-   if (go_btn == false&&start_btn == true&&mouseX>450&&mouseX<(450+150)&&mouseY<(245+150)&&mouseY>245&& mousePressed== true){//choose boy
-      noFill();
+     stroke(200);
+     rect(450,200,200,200);
+   } 
+   if (start_btn==true && go_btn ==false && girltf==false) {
+     noFill();
       stroke(0);
       strokeWeight(5);
       rect(450,200,200,200);
-      girltf=false;
-      //System.out.println(go_btn);
-     }
+      stroke(200);
+      rect(150,200,200,200);
+   }
      
      //text name
    if (go_btn == false && start_btn ==true) {
@@ -211,6 +221,11 @@ void draw(){
     level1background = loadImage("lvl1background.png");
     imageMode(CORNER);
     image(level1background,0,0,800,700);
+    
+    PImage level1 = loadImage("level1.png");
+    level1.resize(230,60);
+    image(level1, 520, 630);
+    
     b1.display();
     b1.move();
     b2.display();
@@ -297,5 +312,9 @@ void draw(){
   carArray6.display();
   carArray7.display();
   carArray8.display();
+  //crab
+  crab.display();
+  crab.move();
+  crab.legsMove();
  }
 }
