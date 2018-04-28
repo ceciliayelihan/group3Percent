@@ -18,8 +18,9 @@ class User{
   }
   
   void displayTime() {
+    fill(255);
     textSize(40);
-    text(this.time,740,50);
+    text(this.time,700,50);
   }
   
   void displayHealth() {
