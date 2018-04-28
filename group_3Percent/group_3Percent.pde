@@ -94,22 +94,22 @@ crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
   backgroundmusic = new SoundFile(this,"gamemusic.mp3");
   backgroundmusic.play();
   //car facing right
-  PImage car_right = loadImage("car_right.png");
-  car1 = new Car(car_right,0,500,10,-200,100); 
-  car2 = new Car(car_right,-1000,500,10,-200,100); 
+  PImage car_right = loadImage("blue_car.png");
+  car1 = new Car(car_right,0,520,10,-200,70); 
+  car2 = new Car(car_right,-1000,520,10,-200,70); 
   carArray1 = new CarArray(1,car1);
   carArray2 = new CarArray(1,car2);
-  car3 = new Car(car_right,0,350,20,-200,100); 
-  car4 = new Car(car_right,-1000,350,20,-200,100); 
+  car3 = new Car(car_right,0,400,20,-200,70); 
+  car4 = new Car(car_right,-1000,400,20,-200,70); 
   carArray3 = new CarArray(1,car3);
   carArray4 = new CarArray(1,car4);
-  PImage car_left = loadImage("car_left.png");
-  car5 = new Car(car_left,800,550,-5,200,70); 
-  car6 = new Car(car_left,1800,550,-5,200,70); 
+  PImage car_left = loadImage("red_car.png");
+  car5 = new Car(car_left,800,580,-5,200,70); 
+  car6 = new Car(car_left,1800,580,-5,200,70); 
   carArray5 = new CarArray(1,car5);
   carArray6 = new CarArray(1,car6);
-  car7 = new Car(car_left,800,400,-15,200,70); 
-  car8 = new Car(car_left,1800,400,-15,200,70); 
+  car7 = new Car(car_left,800,450,-15,200,70); 
+  car8 = new Car(car_left,1800,450,-15,200,70); 
   carArray7 = new CarArray(1,car7);
   carArray8 = new CarArray(1,car8);
 }
@@ -312,9 +312,27 @@ void draw(){
   carArray6.display();
   carArray7.display();
   carArray8.display();
+  if  (hitCar==true){
+    girl.x = 400;
+    girl.y = 680;
+    girl.display();
+    girl.move();
+    user.decreaseHealth();
+    hitCar=false;
+   }
   //crab
   crab.display();
   crab.move();
   crab.legsMove();
  }
+}
+void CarInteraction(){
+  if ((girl.x+50<car1.x0-50)&&(girl.x-50>car1.x0+50)&&(girl.y-50>car1.y0+50)&&(girl.y+50<car1.y0-50)){
+    hitCar = false;
+    System.out.println(car1.x0);
+  }
+  else{
+    hitCar = true;
+  }
+
 }
