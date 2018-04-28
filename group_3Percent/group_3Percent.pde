@@ -52,6 +52,7 @@ Car car7;
 Car car8;
 CarArray carArray7;
 CarArray carArray8;
+Boolean hitCar=false;
 void setup(){
 crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
   PImage life =loadImage("life.png");
