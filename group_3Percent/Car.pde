@@ -14,13 +14,22 @@ class Car{
   }
   void display(){
     imageMode(CENTER);
-    image(car,x0,y0,size,size);
-    image(car,x0+this.distance,y0,size,size);
-    image(car,x0+this.distance*2,y0,size,size);
-    image(car,x0+this.distance*3,y0,size,size);
-    image(car,x0+this.distance*4,y0,size,size);
+    for (int i =0; i<5; i++){
+      image(car,x0+i*this.distance,this.y0,size,size);
+      image(car,x0+i*this.distance,this.y0-120,size,size);
+    }
+
   }
   void move(){
-    this.x0+=speed;
+    if (x0-1000>800){
+      this.x0 = 0;
+    }
+    if (x0+1000<0){
+      this.x0 =800;
+    }
+    else{
+      this.x0+=speed;
+    }
   }
+
 }
