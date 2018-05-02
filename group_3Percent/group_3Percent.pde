@@ -1,7 +1,8 @@
 import processing.sound.*;
 Sprite girl;
 Sprite boy;
-Boat b1,b2,b3,b4;
+User u;
+Boat b0,b1,b2,b3,b4;
 PImage[]animation_girl;
 PImage[]animation_boy;
 PImage[]animation;
@@ -16,6 +17,7 @@ Boolean start_btn = false; //start or scoreboard in main screen
 Boolean scoreboard_btn = false;//start or scoreboard in main screen
 Boolean go_btn = false;
 Boolean on = false;
+Boolean set=true;
 int lvl,t1;
 
 //textField
@@ -69,12 +71,6 @@ crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
   image(start,325,370,150,60);
   image(score,325,475,150,60);
   image(girlt,255,370,60,60);
-  PImage boat = loadImage("boat.png");
-  PImage leaf = loadImage("leaf.png");
-  b1 = new Boat(0,50,10,boat,100,40);
-  b2 = new Boat(800,105,-10,leaf,100,55);
-  b3 = new Boat(50,160,10,boat,100,40);
-  b4 = new Boat(750,215,-15,leaf,100,55);
   frameRate(10);
   size(800,700);
   animation_girl = new PImage[12];
@@ -90,19 +86,19 @@ crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
     animation_boy[i]=boy;
     }
 
-  girl = new Sprite(animation_girl,400,680,3);
-  boy = new Sprite(animation_boy,400,680,3);
+  girl = new Sprite(animation_girl,400,654,3);
+  boy = new Sprite(animation_boy,400,654,3);
   //sound and gui
   backgroundmusic = new SoundFile(this,"gamemusic.mp3");
   backgroundmusic.play();
   //car facing right
   PImage car_right = loadImage("blue_car.png");
-  car1 = new Car(car_right,0,520,10,-200,70); 
-  car2 = new Car(car_right,-1000,520,10,-200,70); 
+  car1 = new Car(car_right,0,520,5,-200,70); 
+  car2 = new Car(car_right,-1000,520,5,-200,70); 
   carArray1 = new CarArray(1,car1);
   carArray2 = new CarArray(1,car2);
-  car3 = new Car(car_right,0,400,20,-200,70); 
-  car4 = new Car(car_right,-1000,400,20,-200,70); 
+  car3 = new Car(car_right,0,400,5,-200,70); 
+  car4 = new Car(car_right,-1000,400,5,-200,70); 
   carArray3 = new CarArray(1,car3);
   carArray4 = new CarArray(1,car4);
   PImage car_left = loadImage("red_car.png");
@@ -110,8 +106,8 @@ crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
   car6 = new Car(car_left,1800,580,-5,200,70); 
   carArray5 = new CarArray(1,car5);
   carArray6 = new CarArray(1,car6);
-  car7 = new Car(car_left,800,450,-15,200,70); 
-  car8 = new Car(car_left,1800,450,-15,200,70); 
+  car7 = new Car(car_left,800,450,-5,200,70); 
+  car8 = new Car(car_left,1800,450,-5,200,70); 
   carArray7 = new CarArray(1,car7);
   carArray8 = new CarArray(1,car8);
 }
@@ -162,15 +158,14 @@ void draw(){
    if (go_btn == false && start_btn ==true) {
      if (keyPressed && (key >= 'A' && key <= 'z') || key == ' ') {
        textSize(30);
-       text(userName,320,530);
        userName = userName + key;
+       text(userName,320,530);
      }
    }
    
    if (go_btn == false&&start_btn ==true&&mouseX>200&&mouseX<600 && mouseY>600 &&mouseY<640 && mousePressed== true){ // press go button
       move = true;
       go_btn =true;
-      
       //lvl 1 & start time
       lvl = 1;
       t1 = millis()/1000;
@@ -209,6 +204,24 @@ void draw(){
        }
  }
   if (move==true){
+    if (user.level==1 && set==true){
+  PImage boat = loadImage("boat.png");
+  PImage leaf = loadImage("leaf.png");
+  b0 = new Boat(0,56,-5,leaf,120,46);
+  b1 = new Boat(0,102,5,boat,120,46);
+  b2 = new Boat(800,148,-5,leaf,120,46);
+  b3 = new Boat(0,194,5,boat,120,46);
+  b4 = new Boat(800,240,-5,leaf,120,46);
+  set=false;}
+  if (user.level==2 && set==true){
+  PImage boat = loadImage("boat.png");
+  PImage leaf = loadImage("leaf.png");
+  b0 = new Boat(0,56,-10,leaf,120,46);
+  b1 = new Boat(0,102,10,boat,120,46);
+  b2 = new Boat(800,148,-10,leaf,120,46);
+  b3 = new Boat(0,194,10,boat,120,46);
+  b4 = new Boat(800,240,-10,leaf,120,46);
+  set=false;}
     sound = loadImage("sound.png");
     mute = loadImage("mute.png");
     play = loadImage("play.png");
@@ -227,7 +240,8 @@ void draw(){
     PImage level1 = loadImage("level1.png");
     level1.resize(230,60);
     image(level1, 520, 630);
-    
+    b0.display();
+    b0.move();
     b1.display();
     b1.move();
     b2.display();
@@ -238,42 +252,83 @@ void draw(){
     b4.move();
     if(girltf ==true){
       girl.display();
-      girl.move();      
-      if (girl.y<(215+55)&&girl.y>(215)){
+      girl.move();  
+      if (girl.y==b0.y||girl.y==b2.y|| girl.y==b4.y){
         on=false;
-        for(int i = 0; i < 4; i++){
-          if ( (girl.x>(b4.x+i*200) && girl.x<(b4.x+i*200+b3.l)) || (girl.x>(b4.x+i*200-800) && girl.x<(b4.x+i*200+b4.l-800))){
-            on = true; 
-          }
-        }
-        if (on==true){
-           girl.x+=-15;
-        }
-        if (on==false){
-          girl.x=400;
-          girl.y=280;
-        }
-      }
-      if (girl.y<=(160+40)&&girl.y>=(160)){
-        on=false;
-        for(int i = 0; i < 4; i++){
-          if ((girl.x>(b3.x+i*200) && girl.x<(b3.x+i*200+b3.l)) || (girl.x>(b3.x+i*200-800) && girl.x<(b3.x+i*200+b3.l-800))){
+        for(int i = 0; i < 5; i++){
+          if ((girl.x>(b2.x+i*200-60) && girl.x<(b2.x+i*200+60)) || (girl.x>(b2.x+i*200-800-60) && girl.x<(b2.x+i*200+60-800))){
             on = true;
           }
         }
         if (on==true){
           /*Add score*/
-           girl.x+=10;
-        }
+           girl.x+=b2.speed;}
         if (on==false){
+          user.decreaseHealth();
           girl.x=400;
-          girl.y=280;
+          girl.y=286;}
+      }
+      if (girl.y==b1.y||girl.y==b3.y){
+        on=false;
+        for(int i = 0; i < 5; i++){
+          if ((girl.x>(b1.x+i*200-60) && girl.x<(b1.x+i*200+60)) || (girl.x>(b1.x+i*200-800-60) && girl.x<(b1.x+i*200+60-800))){
+            on = true;
+          }
         }
+        if (on==true){
+          /*Add score*/
+           girl.x+=b1.speed;}
+        if (on==false){
+          user.decreaseHealth();
+          girl.x=400;
+          girl.y=286;}
+      }
+      if (girl.y==b0.y-46){
+        user.lvlup();
+        set=true;
+        girl.x=400;
+        girl.y=654;
       }
     }
     if(girltf ==false){
       boy.display();
       boy.move();
+      if (boy.y==b0.y||boy.y==b2.y|| boy.y==b4.y){
+        on=false;
+        for(int i = 0; i < 5; i++){
+          if ((boy.x>(b2.x+i*200-60) &&boy.x<(b2.x+i*200+60)) || (boy.x>(b2.x+i*200-800-60) && boy.x<(b2.x+i*200+60-800))){
+            on = true;
+          }
+        }
+        if (on==true){
+          /*Add score*/
+           boy.x+=b2.speed;}
+        if (on==false){
+          user.decreaseHealth();
+          boy.x=400;
+          boy.y=286;}
+      }
+      if (boy.y==b1.y||boy.y==b3.y){
+        on=false;
+        for(int i = 0; i < 5; i++){
+          if ((boy.x>(b1.x+i*200-60) && boy.x<(b1.x+i*200+60)) || (boy.x>(b1.x+i*200-800-60) && boy.x<(b1.x+i*200+60-800))){
+            on = true;
+          }
+        }
+        if (on==true){
+          /*Add score*/
+           boy.x+=b1.speed;}
+        if (on==false){
+          user.decreaseHealth();
+          boy.x=400;
+          boy.y=286;}
+      }
+      if (boy.y==b0.y-46){
+        user.lvlup();
+        set=true;
+        boy.x=400;
+        boy.y=654;
+      }
     }
 
     if (pausePressed == false) {
@@ -354,9 +409,11 @@ void draw(){
     hitCar=false;
    }
   //crab
+  if (user.level==2){
   crab.display();
   crab.move();
   crab.legsMove();
+  }
  }
 }
 void CarInteraction(){
