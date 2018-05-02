@@ -6,7 +6,7 @@ class User{
   User(String name, PImage heart, int t, int level) {
     this.name = name;
     this.points = 0;
-    this.health = 3;
+    this.health = 5;
     this.time = 0;
     this.heart = heart;
     this.t = t;
