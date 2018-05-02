@@ -1,7 +1,6 @@
 import processing.sound.*;
 Sprite girl;
 Sprite boy;
-User u;
 Boat b0,b1,b2,b3,b4;
 PImage[]animation_girl;
 PImage[]animation_boy;
@@ -29,6 +28,7 @@ PImage level1background;
 Boolean mutePressed=false;
 Boolean pausePressed=false;
 SoundFile backgroundmusic;
+SoundFile levelup;
 
 //create User instance
 User user;
@@ -273,6 +273,8 @@ void draw(){
           girl.y=286;}
       }
       if (girl.y==b0.y-46){
+        levelup = new SoundFile(this,"levelup.mp3");
+        levelup.play();
         user.lvlup();
         set=true;
         girl.x=400;
