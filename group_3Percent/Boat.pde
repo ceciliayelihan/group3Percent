@@ -14,6 +14,7 @@ class Boat{
  
   
   void display(){
+    imageMode(CENTER);
     for(int i = 0; i < 4; i++){
         image(boat,x+i*200,y,l,h);
         image(boat,x+i*200-800,y,l,h);
