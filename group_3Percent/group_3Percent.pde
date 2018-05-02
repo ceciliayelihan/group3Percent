@@ -2,7 +2,7 @@ import processing.sound.*;
 Sprite girl, boy;
 Boat b0,b1,b2,b3,b4;
 PImage[]animation_girl, animation_boy, animation;
-PImage boy_choose, girl_choose, name, choose, sound, mute, play, pause, level1background /*car_right*/;
+PImage boy_choose, girl_choose, name, choose, sound, mute, play, pause, level1background;
 int imgCt = 12;
 Boolean move =false; /*level one move?*/
 Boolean girltf=true;/*choose character in the beginning */
