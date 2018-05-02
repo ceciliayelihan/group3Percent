@@ -34,6 +34,10 @@ class User{
     this.health -= 1;
   }
   
+  void lvlup() {
+    this.level += 1;
+  }
+  
   void countPoints() {
     this.points = 1000*this.level + 1/this.time*100;
   }
