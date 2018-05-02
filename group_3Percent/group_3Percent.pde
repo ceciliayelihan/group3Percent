@@ -37,24 +37,15 @@ CrabLegs crab;
 // Car
 PImage car_right;
 // car facing right
-Car car1;//car 1 and car2 are same, car_right
-Car car2;
-CarArray carArray1;
-CarArray carArray2;
+// Car
+PImage car_right;
+// car facing right
+Car car1;//blue car
 Car car3;
-Car car4;
-CarArray carArray3;
-CarArray carArray4;
 //car facing left
-Car car5;
-Car car6;
-CarArray carArray5;
-CarArray carArray6;
-Car car7;
-Car car8;
-CarArray carArray7;
-CarArray carArray8;
-Boolean hitCar=false;
+Car car2;//red car
+Car car4;
+
 void setup(){
 crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
   PImage life =loadImage("life.png");
@@ -94,22 +85,12 @@ crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
   //car facing right
   PImage car_right = loadImage("blue_car.png");
   car1 = new Car(car_right,0,520,5,-200,70); 
-  car2 = new Car(car_right,-1000,520,5,-200,70); 
-  carArray1 = new CarArray(1,car1);
-  carArray2 = new CarArray(1,car2);
-  car3 = new Car(car_right,0,400,5,-200,70); 
-  car4 = new Car(car_right,-1000,400,5,-200,70); 
-  carArray3 = new CarArray(1,car3);
-  carArray4 = new CarArray(1,car4);
+  car3 = new Car(car_right,-2000,520,5,-200,70);
+
   PImage car_left = loadImage("red_car.png");
-  car5 = new Car(car_left,800,580,-5,200,70); 
-  car6 = new Car(car_left,1800,580,-5,200,70); 
-  carArray5 = new CarArray(1,car5);
-  carArray6 = new CarArray(1,car6);
-  car7 = new Car(car_left,800,450,-5,200,70); 
-  car8 = new Car(car_left,1800,450,-5,200,70); 
-  carArray7 = new CarArray(1,car7);
-  carArray8 = new CarArray(1,car8);
+  car2 = new Car(car_left,800,580,-5,200,70); 
+  car4 = new Car(car_left,1940,580,-5,200,70);
+
 }
 void draw(){
   PImage life =loadImage("life.png");
@@ -268,6 +249,14 @@ void draw(){
           girl.x=400;
           girl.y=286;}
       }
+      //car interaction
+      if ((car1UpInteractGirl() == true) || (car2UpInteractGirl() == true) || (car3UpInteractGirl() == true) || (car4UpInteractGirl() == true)||(car1DownInteractGirl() == true) || (car2DownInteractGirl() == true) || (car3DownInteractGirl() == true) || (car4DownInteractGirl() == true)){
+        System.out.println("hit");
+        girl.x = 400;
+        girl.y = 640; 
+        user.health -=1;
+      }
+    }
       if (girl.y==b1.y||girl.y==b3.y){
         on=false;
         for(int i = 0; i < 5; i++){
@@ -359,55 +348,16 @@ void draw(){
   user.displayTime();
   //user.decreaseHealth();
   //user.reset();
-     //display cars-right
-  if (carArray1.right_offScreen()==true){
-    car1.x0=0;
-    carArray1 = new CarArray(1,car1);
-  }
-  if (carArray2.right_offScreen()==true){
-    car2.x0=0;
-    carArray2 = new CarArray(1,car2);
-  }
-    if (carArray3.right_offScreen()==true){
-    car3.x0=0;
-    carArray3 = new CarArray(1,car3);
-  }
-  if (carArray4.right_offScreen()==true){
-    car4.x0=800;
-    carArray4 = new CarArray(1,car4);
-  }
-    if (carArray5.left_offScreen()==true){
-    car5.x0=800;
-    carArray5 = new CarArray(1,car5);
-  }
-  if (carArray6.left_offScreen()==true){
-    car6.x0=800;
-    carArray6 = new CarArray(1,car6);
-  }
-    if (carArray7.left_offScreen()==true){
-    car7.x0=800;
-    carArray7 = new CarArray(1,car7);
-  }
-  if (carArray8.left_offScreen()==true){
-    car8.x0=800;
-    carArray8 = new CarArray(1,car8);
-  }
-  carArray1.display();
-  carArray2.display();
-  carArray3.display();
-  carArray4.display();
-  carArray5.display();
-  carArray6.display();
-  carArray7.display();
-  carArray8.display();
-  if  (hitCar==true){
-    girl.x = 400;
-    girl.y = 680;
-    girl.display();
-    girl.move();
-    user.decreaseHealth();
-    hitCar=false;
-   }
+  //display cars
+  car1.display();
+  car1.move();
+  car3.display();
+  car3.move();
+  car2.display();
+  car2.move();
+  car4.display();
+  car4.move();
+
   //crab
   if (user.level==2){
   crab.display();
@@ -416,13 +366,111 @@ void draw(){
   }
  }
 }
-void CarInteraction(){
-  if ((girl.x+50<car1.x0-50)&&(girl.x-50>car1.x0+50)&&(girl.y-50>car1.y0+50)&&(girl.y+50<car1.y0-50)){
-    hitCar = false;
-    System.out.println(car1.x0);
+Boolean car1UpInteractGirl(){
+  //for girl
+  //for car1
+  if (((car1.x0+20<girl.x-10) ||(car1.y0-120+20<girl.y-10)||(car1.x0-20>girl.x+10)||(car1.y0-120-20>girl.y+10))  
+  && ((car1.x0-200+20<girl.x-10) || (car1.y0-120+20<girl.y-10) || (car1.x0-200-20>girl.x+10) ||(car1.y0-120-20>girl.y+10))
+  &&((car1.x0-400+20<girl.x-10)  || (car1.y0-120+20<girl.y-10) ||(car1.x0-400-20>girl.x+10) ||(car1.y0-120-20>girl.y+10))
+  &&((car1.x0-800+20<girl.x-10) || (car1.y0-120+20<girl.y-10)  ||(car1.x0-800-20>girl.x+10) ||(car1.y0-120-20>girl.y+10))){
+    return false;
   }
   else{
-    hitCar = true;
+    return true;
   }
-
 }
+Boolean car2UpInteractGirl(){
+  //for girl
+  //for car1
+  if (((car2.x0+25<girl.x-10) ||(car2.y0-120+25<girl.y-10)||(car2.x0-25>girl.x+10)||(car2.y0-120-25>girl.y+10))  
+  && ((car2.x0-200+25<girl.x-10) || (car2.y0-120+25<girl.y-10) || (car2.x0-200-25>girl.x+10) ||(car2.y0-120-25>girl.y+10))
+  &&((car2.x0-400+25<girl.x-10)  || (car2.y0-120+25<girl.y-10) ||(car2.x0-400-25>girl.x+10) ||(car2.y0-120-25>girl.y+10) )
+  &&((car2.x0-800+25<girl.x-10) || (car2.y0-120+25<girl.y-10) ||(car2.x0-800-25>girl.x+10) ||(car2.y0-120-25>girl.y+10))){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
+Boolean car3UpInteractGirl(){
+  //for girl
+  //for car1
+  if (((car3.x0+20<girl.x-10) ||(car3.y0-120+20<girl.y-10)||(car3.x0-20>girl.x+10)||(car3.y0-120-20>girl.y+10))  
+  && ((car3.x0-200+20<girl.x-10) || (car3.y0-120+20<girl.y-10)  || (car3.x0-200-20>girl.x+10) ||(car3.y0-120-20>girl.y+10))
+  &&((car3.x0-400+20<girl.x-10)  || (car3.y0-120+20<girl.y-10) ||(car3.x0-400-20>girl.x+10) ||(car3.y0-120-20>girl.y+10))
+  &&((car3.x0-800+20<girl.x-10) || (car3.y0-120+20<girl.y-10) ||(car3.x0-800-20>girl.x+10) ||(car3.y0-120-20>girl.y+10))){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+Boolean car4UpInteractGirl(){
+  //for girl
+  //for car1
+  if (((car4.x0+25<girl.x-10) ||(car4.y0-120+25<girl.y-10)||(car4.x0-25>girl.x+10)||(car4.y0-120-25>girl.y+10))  
+  && ((car4.x0-200+25<girl.x-10) || (car4.y0-120+25<girl.y-10) || (car4.x0-200-25>girl.x+10) ||(car4.y0-120-25>girl.y+10))
+  &&((car4.x0-400+25<girl.x-10)  || (car4.y0-120+25<girl.y-10) ||(car4.x0-400-25>girl.x+10) ||(car4.y0-120-25>girl.y+10))
+  &&((car4.x0-800+25<girl.x-10) || (car4.y0-120+25<girl.y-10) ||(car4.x0-800-25>girl.x+10) ||(car4.y0-120-25>girl.y+10))){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
+Boolean car1DownInteractGirl(){
+  //for girl
+  //for car1
+  if (((car1.x0+20<girl.x-10) ||(car1.y0+20<girl.y-10)||(car1.x0-20>girl.x+10)||(car1.y0-20>girl.y+10))  
+  && ((car1.x0-200+20<girl.x-10) || (car1.y0+20<girl.y-10) || (car1.x0-200-20>girl.x+10) ||(car1.y0-20>girl.y+10))
+  &&((car1.x0-400+20<girl.x-10)  || (car1.y0+20<girl.y-10) ||(car1.x0-400-20>girl.x+10) ||(car1.y0-20>girl.y+10))
+  &&((car1.x0-800+20<girl.x-10) || (car1.y0+20<girl.y-10)  ||(car1.x0-800-20>girl.x+10) ||(car1.y0-20>girl.y+10))){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+Boolean car2DownInteractGirl(){
+  //for girl
+  //for car1
+  if (((car2.x0+25<girl.x-10) ||(car2.y0+25<girl.y-10)||(car2.x0-25>girl.x+10)||(car2.y0-25>girl.y+10))  
+  && ((car2.x0-200+25<girl.x-10) || (car2.y0+25<girl.y-10) || (car2.x0-200-25>girl.x+10) ||(car2.y0-25>girl.y+10))
+  &&((car2.x0-400+25<girl.x-10)  || (car2.y0+25<girl.y-10) ||(car2.x0-400-25>girl.x+10) ||(car2.y0-25>girl.y+10) )
+  &&((car2.x0-800+25<girl.x-10) || (car2.y0+25<girl.y-10) ||(car2.x0-800-25>girl.x+10) ||(car2.y0-25>girl.y+10))){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
+Boolean car3DownInteractGirl(){
+  //for girl
+  //for car1
+  if (((car3.x0+20<girl.x-10) ||(car3.y0+20<girl.y-10)||(car3.x0-20>girl.x+10)||(car3.y0-20>girl.y+10))  
+  && ((car3.x0-200+20<girl.x-10) || (car3.y0+20<girl.y-10)  || (car3.x0-200-20>girl.x+10) ||(car3.y0-20>girl.y+10))
+  &&((car3.x0-400+20<girl.x-10)  || (car3.y0+20<girl.y-10) ||(car3.x0-400-20>girl.x+10) ||(car3.y0-20>girl.y+10))
+  &&((car3.x0-800+20<girl.x-10) || (car3.y0+20<girl.y-10) ||(car3.x0-800-20>girl.x+10) ||(car3.y0-20>girl.y+10))){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+Boolean car4DownInteractGirl(){
+  //for girl
+  //for car1
+  if (((car4.x0+25<girl.x-10) ||(car4.y0+25<girl.y-10)||(car4.x0-25>girl.x+10)||(car4.y0-25>girl.y+10))  
+  && ((car4.x0-200+25<girl.x-10) || (car4.y0+25<girl.y-10) || (car4.x0-200-25>girl.x+10) ||(car4.y0-25>girl.y+10))
+  &&((car4.x0-400+25<girl.x-10)  || (car4.y0+25<girl.y-10) ||(car4.x0-400-25>girl.x+10) ||(car4.y0-25>girl.y+10))
+  &&((car4.x0-800+25<girl.x-10) || (car4.y0+25<girl.y-10) ||(car4.x0-800-25>girl.x+10) ||(car4.y0-25>girl.y+10))){
+    return false;
+  }
+  else{
+    return true;
+  }
+}
+
