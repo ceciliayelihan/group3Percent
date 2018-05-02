@@ -16,14 +16,14 @@ class Sprite{
     if (keyPressed == true){
       if (key == CODED){
         if (keyCode == UP){
-          this.y = this.y -40;
+          this.y = this.y -46;
           this.up = true;
           this.down = false;
           this.left = false;
           this.right = false;
       }
          if (keyCode == DOWN){
-          this.y = this.y + 40;
+          this.y = this.y + 46;
           this.up = false;
           this.down = true;
           this.left = false;
