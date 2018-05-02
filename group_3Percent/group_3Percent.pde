@@ -1,52 +1,27 @@
 import processing.sound.*;
-Sprite girl;
-Sprite boy;
+Sprite girl, boy;
 Boat b0,b1,b2,b3,b4;
-PImage[]animation_girl;
-PImage[]animation_boy;
-PImage[]animation;
-PImage boy_choose;
-PImage girl_choose;
-PImage name;
-PImage choose;
+PImage[]animation_girl, animation_boy, animation;
+PImage boy_choose, girl_choose, name, choose, sound, mute, play, pause, level1background /*car_right*/;
 int imgCt = 12;
-Boolean move =false;//level one move?
-Boolean girltf=true;//choose character in the beginning 
+Boolean move =false; /*level one move?*/
+Boolean girltf=true;/*choose character in the beginning */
 Boolean start_btn = false; //start or scoreboard in main screen
 Boolean scoreboard_btn = false;//start or scoreboard in main screen
 Boolean go_btn = false;
-Boolean on = false;
-Boolean set=true;
+Boolean on = false, set=true, mutePressed=false, pausePressed=false;
 int lvl,t1;
-
 //textField
 String userName = "";
-
-//sound and GUI
-PImage sound, mute, play, pause;
-PImage level1background;
-Boolean mutePressed=false;
-Boolean pausePressed=false;
 SoundFile backgroundmusic;
 SoundFile levelup;
-
-//create User instance
 User user;
-//crab
 CrabLegs crab;
-// Car
-// car facing right
-// Car
-PImage car_right;
-// car facing right
-Car car1;//blue car
-Car car3;
-//car facing left
-Car car2;//red car
-Car car4;
+Car car1, car3, car2, car4;
 
-void setup(){
-crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
+void setup() {
+  crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
+  ////start screen////////////////////////////////////////////////////////////
   PImage life =loadImage("life.png");
   PImage start =loadImage("start.png");
   PImage score =loadImage("score.png");
@@ -63,6 +38,7 @@ crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
   image(girlt,255,370,60,60);
   frameRate(10);
   size(800,700);
+  //////call character////////////////////////////////////////////////////
   animation_girl = new PImage[12];
   animation_boy = new PImage[12];
   for (int i =0; i<12;i++){
@@ -75,24 +51,54 @@ crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
     PImage boy = loadImage(imgName);
     animation_boy[i]=boy;
     }
-
   girl = new Sprite(animation_girl,400,654,3);
   boy = new Sprite(animation_boy,400,654,3);
-  //sound and gui
+  ///////sound/////////////////////////////////////////////////////
   backgroundmusic = new SoundFile(this,"gamemusic.mp3");
   backgroundmusic.play();
-  //car facing right
+  ////////call car//////////////////////////////////////////////
   PImage car_right = loadImage("blue_car.png");
   car1 = new Car(car_right,0,520,5,-200,70); 
   car3 = new Car(car_right,-2000,520,5,-200,70);
-
   PImage car_left = loadImage("red_car.png");
   car2 = new Car(car_left,800,580,-5,200,70); 
   car4 = new Car(car_left,1940,580,-5,200,70);
-
 }
+
 void draw(){
-  PImage life =loadImage("life.png");
+  ////////scoreboard//////////////////////////////////
+   if (scoreboard_btn ==false&&start_btn==false&&mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
+       if (mousePressed == true) {
+         fill(255);
+         rect(0,0,800,700);
+         PImage scoreboard =loadImage("scoretable.png");
+         image(scoreboard,180,80,440,160);
+         scoreboard_btn = true;
+         PImage back =loadImage("back.png");
+         image(back,40,40,70,30);
+       }
+   }
+   if (scoreboard_btn ==true&&mouseX>40&&mouseX<(40+70)&&mouseY<(40+30)&&mouseY>40){//press score table in start
+       if (mousePressed == true) {
+         scoreboard_btn=false;
+         //life =loadImage("life.png");
+         PImage start =loadImage("start.png");
+         PImage score =loadImage("score.png");
+         PImage girlt =loadImage("girl002.png");
+         PImage title =loadImage("title.png");
+         PImage road =loadImage("road.png");
+         PImage life =loadImage("life.png");
+         image(road,0,0,800,700);
+         image(life,50,50,50,50);
+         image(life,110,50,50,50);
+         image(life,170,50,50,50);
+         image(title,180,200,450,90);
+         image(start,325,370,150,60);
+         image(score,325,475,150,60);
+         image(girlt,255,370,60,60);
+       }
+   }
+  /////choose character screen///////////////////////////////////
   if (start_btn == false && mouseX>325 &&mouseX<(325+150)&&mouseY<(370+60)&&mouseY>370 && mousePressed == true){// if press start
     PImage road =loadImage("road.png");
     image(road,0,0,800,700);
@@ -108,15 +114,14 @@ void draw(){
     image(go,200,600,400,40);
     start_btn = true;
   }
-  
+  //start choosing
   if (go_btn == false&&start_btn == true && mouseX>150&&mouseX<(150+200)&&mouseY<(200+200)&&mouseY>200 && mousePressed== true){//choose girl
      girltf=true; 
     }
-    
    if (go_btn == false&&start_btn == true&&mouseX>450&&mouseX<(450+150)&&mouseY<(245+150)&&mouseY>245&& mousePressed== true){//choose boy
       girltf=false;
    }
-   
+   //choose rect
    if (start_btn==true && go_btn ==false && girltf==true) {
      noFill();
      stroke(0);
@@ -133,7 +138,6 @@ void draw(){
       stroke(200);
       rect(150,200,200,200);
    }
-     
      //text name
    if (go_btn == false && start_btn ==true) {
      if (keyPressed && (key >= 'A' && key <= 'z') || key == ' ') {
@@ -142,84 +146,76 @@ void draw(){
        text(userName,320,530);
      }
    }
-   
-   if (go_btn == false&&start_btn ==true&&mouseX>200&&mouseX<600 && mouseY>600 &&mouseY<640 && mousePressed== true){ // press go button
+   ////////level 1 start/////////////////////////press go button
+   if (go_btn == false&&start_btn ==true&&mouseX>200&&mouseX<600 && mouseY>600 &&mouseY<640 && mousePressed== true){ 
       move = true;
       go_btn =true;
       //lvl 1 & start time
       lvl = 1;
       t1 = millis()/1000;
       //create user
+      PImage life =loadImage("life.png");
       user=new User(userName,life,t1,lvl);
      }
- //System.out.println(move);
- if (scoreboard_btn ==false&&start_btn==false&&mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
-       if (mousePressed == true) {
-         fill(255);
-         rect(0,0,800,700);
-         PImage scoreboard =loadImage("scoretable.png");
-         image(scoreboard,180,80,440,160);
-         scoreboard_btn = true;
-         PImage back =loadImage("back.png");
-         image(back,40,40,70,30);
-       }
- }
- if (scoreboard_btn ==true&&mouseX>40&&mouseX<(40+70)&&mouseY<(40+30)&&mouseY>40){//press score table in start
-       if (mousePressed == true) {
-         scoreboard_btn=false;
-         //life =loadImage("life.png");
-         PImage start =loadImage("start.png");
-         PImage score =loadImage("score.png");
-         PImage girlt =loadImage("girl002.png");
-         PImage title =loadImage("title.png");
-         PImage road =loadImage("road.png");
-         image(road,0,0,800,700);
-         image(life,50,50,50,50);
-         image(life,110,50,50,50);
-         image(life,170,50,50,50);
-         image(title,180,200,450,90);
-         image(start,325,370,150,60);
-         image(score,325,475,150,60);
-         image(girlt,255,370,60,60);
-       }
- }
+     
+////////////level///////////////////////////////////////////////////////////
   if (move==true){
-    if (user.level==1 && set==true){
-  PImage boat = loadImage("boat.png");
-  PImage leaf = loadImage("leaf.png");
-  b0 = new Boat(0,56,-5,leaf,120,46);
-  b1 = new Boat(0,102,5,boat,120,46);
-  b2 = new Boat(800,148,-5,leaf,120,46);
-  b3 = new Boat(0,194,5,boat,120,46);
-  b4 = new Boat(800,240,-5,leaf,120,46);
-  set=false;}
-  if (user.level==2 && set==true){
-  PImage boat = loadImage("boat.png");
-  PImage leaf = loadImage("leaf.png");
-  b0 = new Boat(0,56,-10,leaf,120,46);
-  b1 = new Boat(0,102,10,boat,120,46);
-  b2 = new Boat(800,148,-10,leaf,120,46);
-  b3 = new Boat(0,194,10,boat,120,46);
-  b4 = new Boat(800,240,-10,leaf,120,46);
-  set=false;}
-    sound = loadImage("sound.png");
-    mute = loadImage("mute.png");
-    play = loadImage("play.png");
-    pause = loadImage("pause.png");
-  
-    sound.resize(57,57);
-    mute.resize(57,57);
-    play.resize(50,50);
-    pause.resize(51,51);
+    
+     //test user
+     user.countTime();
+     user.displayHealth();
+     user.displayTime();
   
     //music and background level one
     level1background = loadImage("lvl1background.png");
     imageMode(CORNER);
     image(level1background,0,0,800,700);
-    
+    //load image
+    PImage boat = loadImage("boat.png");
+    PImage leaf = loadImage("leaf.png");
+    sound = loadImage("sound.png");
+    mute = loadImage("mute.png");
+    play = loadImage("play.png");
+    pause = loadImage("pause.png");
+    sound.resize(57,57);
+    mute.resize(57,57);
+    play.resize(50,50);
+    pause.resize(51,51);
     PImage level1 = loadImage("level1.png");
     level1.resize(230,60);
     image(level1, 520, 630);
+    
+    //// pause and mute /////
+    if (pausePressed == false) {
+    image(pause,35,665); } else { image(play,35,665); }
+    if (mutePressed == false) {
+      image(mute,95,665); } else { image(sound,95,665); }
+    if (dist(mouseX,mouseY,35,665)<30 && mousePressed ==true && pausePressed==false) {
+        pausePressed=true; } else if (dist(mouseX,mouseY,35,665)<30 && mousePressed ==true && pausePressed==true) { pausePressed=false; }
+    if (dist(mouseX,mouseY,95,665)<30 && mousePressed ==true && mutePressed==false) {
+      mutePressed=true;
+      backgroundmusic.stop(); } else if (dist(mouseX,mouseY,95,665)<30 && mousePressed ==true && mutePressed==true) {
+        mutePressed=false;
+        backgroundmusic.play();
+      }
+  
+    //level change
+    if (user.level==1 && set==true){
+      b0 = new Boat(0,56,-5,leaf,120,46);
+      b1 = new Boat(0,102,5,boat,120,46);
+      b2 = new Boat(800,148,-5,leaf,120,46);
+      b3 = new Boat(0,194,5,boat,120,46);
+      b4 = new Boat(800,240,-5,leaf,120,46);
+      set=false; }
+    if (user.level==2 && set==true){
+      b0 = new Boat(0,56,-10,leaf,120,46);
+      b1 = new Boat(0,102,10,boat,120,46);
+      b2 = new Boat(800,148,-10,leaf,120,46);
+      b3 = new Boat(0,194,10,boat,120,46);
+      b4 = new Boat(800,240,-10,leaf,120,46);
+      set=false; }
+    
+    ///////display boat///////////
     b0.display();
     b0.move();
     b1.display();
@@ -230,9 +226,28 @@ void draw(){
     b3.move();
     b4.display();
     b4.move();
+    //////display cars//////////
+    car1.display();
+    car1.move();
+    car3.display();
+    car3.move();
+    car2.display();
+    car2.move();
+    car4.display();
+    car4.move();
+    
+    ////////girl interection
     if(girltf ==true){
       girl.display();
       girl.move();  
+      //car girl interaction
+      if ((car1UpInteractGirl() == true) || (car2UpInteractGirl() == true) || (car3UpInteractGirl() == true) || (car4UpInteractGirl() == true)||(car1DownInteractGirl() == true) || (car2DownInteractGirl() == true) || (car3DownInteractGirl() == true) || (car4DownInteractGirl() == true)){
+        System.out.println("hit");
+        girl.x = 400;
+        girl.y = 654; 
+        user.decreaseHealth();
+      }
+      //boat girl interect
       if (girl.y==b0.y||girl.y==b2.y|| girl.y==b4.y){
         on=false;
         for(int i = 0; i < 5; i++){
@@ -247,13 +262,6 @@ void draw(){
           user.decreaseHealth();
           girl.x=400;
           girl.y=286;}
-      }
-      //car interaction
-      if ((car1UpInteractGirl() == true) || (car2UpInteractGirl() == true) || (car3UpInteractGirl() == true) || (car4UpInteractGirl() == true)||(car1DownInteractGirl() == true) || (car2DownInteractGirl() == true) || (car3DownInteractGirl() == true) || (car4DownInteractGirl() == true)){
-        System.out.println("hit");
-        girl.x = 400;
-        girl.y = 654; 
-        user.decreaseHealth();
       }
       if (girl.y==b1.y||girl.y==b3.y){
         on=false;
@@ -270,6 +278,7 @@ void draw(){
           girl.x=400;
           girl.y=286;}
       }
+      //level up
       if (girl.y==b0.y-46){
         levelup = new SoundFile(this,"levelup.mp3");
         levelup.play();
@@ -279,6 +288,7 @@ void draw(){
         girl.y=654;
       }
     }
+    //////////boy interection
     if(girltf ==false){
       boy.display();
       boy.move();
@@ -317,61 +327,26 @@ void draw(){
         set=true;
         boy.x=400;
         boy.y=654;
+      }
      if ((car1UpInteractBoy() == true) || (car2UpInteractBoy() == true) || (car3UpInteractBoy() == true) || (car4UpInteractBoy() == true)||(car1DownInteractBoy() == true) || (car2DownInteractBoy() == true) || (car3DownInteractBoy() == true) || (car4DownInteractBoy() == true)){
         System.out.println("hit");
         boy.x = 400;
         boy.y = 654; 
         user.decreaseHealth();
       }
-      }
     }
 
-    if (pausePressed == false) {
-    image(pause,35,665);
-  } else {
-    image(play,35,665);
-  }
-  if (mutePressed == false) {
-    image(mute,95,665);
-  } else {
-    image(sound,95,665);
-  }
-  if (dist(mouseX,mouseY,35,665)<30 && mousePressed ==true && pausePressed==false) {
-    pausePressed=true;
-  } else if (dist(mouseX,mouseY,35,665)<30 && mousePressed ==true && pausePressed==true) {
-    pausePressed=false;
-  }
-  if (dist(mouseX,mouseY,95,665)<30 && mousePressed ==true && mutePressed==false) {
-    mutePressed=true;
-    backgroundmusic.stop();
-  } else if (dist(mouseX,mouseY,95,665)<30 && mousePressed ==true && mutePressed==true) {
-    mutePressed=false;
-    backgroundmusic.play();
-  }
-  //test user
-  user.countTime();
-  user.displayHealth();
-  user.displayTime();
-  //user.decreaseHealth();
-  //user.reset();
-  //display cars
-  car1.display();
-  car1.move();
-  car3.display();
-  car3.move();
-  car2.display();
-  car2.move();
-  car4.display();
-  car4.move();
-
-  //crab
+  ///crab for level 2////
   if (user.level==2){
   crab.display();
   crab.move();
   crab.legsMove();
   }
+  
  }
+ 
 }
+/////////////Car Boolean///////do not enter/////////////////////
 Boolean car1UpInteractGirl(){
   //for girl
   //for car1
@@ -398,7 +373,6 @@ Boolean car2UpInteractGirl(){
     return true;
   }
 }
-
 Boolean car3UpInteractGirl(){
   //for girl
   //for car1
@@ -425,7 +399,6 @@ Boolean car4UpInteractGirl(){
     return true;
   }
 }
-
 Boolean car1DownInteractGirl(){
   //for girl
   //for car1
@@ -452,7 +425,6 @@ Boolean car2DownInteractGirl(){
     return true;
   }
 }
-
 Boolean car3DownInteractGirl(){
   //for girl
   //for car1
@@ -505,7 +477,6 @@ Boolean car2UpInteractBoy(){
     return true;
   }
 }
-
 Boolean car3UpInteractBoy(){
   //for girl
   //for car1
@@ -532,7 +503,6 @@ Boolean car4UpInteractBoy(){
     return true;
   }
 }
-
 Boolean car1DownInteractBoy(){
   //for girl
   //for car1
@@ -559,7 +529,6 @@ Boolean car2DownInteractBoy(){
     return true;
   }
 }
-
 Boolean car3DownInteractBoy(){
   //for girl
   //for car1
