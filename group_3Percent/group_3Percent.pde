@@ -35,7 +35,6 @@ User user;
 //crab
 CrabLegs crab;
 // Car
-PImage car_right;
 // car facing right
 // Car
 PImage car_right;
@@ -256,7 +255,6 @@ void draw(){
         girl.y = 640; 
         user.health -=1;
       }
-    }
       if (girl.y==b1.y||girl.y==b3.y){
         on=false;
         for(int i = 0; i < 5; i++){
@@ -475,4 +473,3 @@ Boolean car4DownInteractGirl(){
     return true;
   }
 }
-
