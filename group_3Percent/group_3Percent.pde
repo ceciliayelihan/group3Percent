@@ -2,16 +2,15 @@ import processing.sound.*;
 Sprite girl, boy;
 Boat b0,b1,b2,b3,b4;
 PImage[]animation_girl, animation_boy, animation;
-PImage boy_choose, girl_choose, name, choose, sound, mute, play, pause, level1background;
+PImage boy_choose, girl_choose, name, choose, sound, mute, level1background;
 int imgCt = 12;
 Boolean move =false; /*level one move?*/
 Boolean girltf=true;/*choose character in the beginning */
 Boolean start_btn = false; //start or scoreboard in main screen
 Boolean scoreboard_btn = false;//start or scoreboard in main screen
 Boolean go_btn = false;
-Boolean on = false, set=true, mutePressed=false, pausePressed=false;
+Boolean on = false, set=true, mutePressed=false;
 int lvl,t1;
-//textField
 String userName = "";
 SoundFile backgroundmusic;
 SoundFile levelup;
@@ -20,7 +19,7 @@ CrabLegs crab;
 Car car1, car3, car2, car4;
 
 void setup() {
-  crab = new CrabLegs(750,1000,10,3.3,-0.1,0);
+  crab = new CrabLegs(300,300,10,3.3,-0.1,0);
   ////start screen////////////////////////////////////////////////////////////
   PImage life =loadImage("life.png");
   PImage start =loadImage("start.png");
@@ -160,12 +159,6 @@ void draw(){
      
 ////////////level///////////////////////////////////////////////////////////
   if (move==true){
-    
-     //test user
-     user.countTime();
-     user.displayHealth();
-     user.displayTime();
-  
     //music and background level one
     level1background = loadImage("lvl1background.png");
     imageMode(CORNER);
@@ -175,26 +168,19 @@ void draw(){
     PImage leaf = loadImage("leaf.png");
     sound = loadImage("sound.png");
     mute = loadImage("mute.png");
-    play = loadImage("play.png");
-    pause = loadImage("pause.png");
     sound.resize(57,57);
     mute.resize(57,57);
-    play.resize(50,50);
-    pause.resize(51,51);
     PImage level1 = loadImage("level1.png");
     level1.resize(230,60);
     image(level1, 520, 630);
     
     //// pause and mute /////
-    if (pausePressed == false) {
-    image(pause,35,665); } else { image(play,35,665); }
+    imageMode(CENTER);
     if (mutePressed == false) {
-      image(mute,95,665); } else { image(sound,95,665); }
-    if (dist(mouseX,mouseY,35,665)<30 && mousePressed ==true && pausePressed==false) {
-        pausePressed=true; } else if (dist(mouseX,mouseY,35,665)<30 && mousePressed ==true && pausePressed==true) { pausePressed=false; }
-    if (dist(mouseX,mouseY,95,665)<30 && mousePressed ==true && mutePressed==false) {
+      image(mute,35,665); } else { image(sound,35,665); }
+    if (dist(mouseX,mouseY,35,665)<30 && mousePressed ==true && mutePressed==false) {
       mutePressed=true;
-      backgroundmusic.stop(); } else if (dist(mouseX,mouseY,95,665)<30 && mousePressed ==true && mutePressed==true) {
+      backgroundmusic.stop(); } else if (dist(mouseX,mouseY,35,665)<30 && mousePressed ==true && mutePressed==true) {
         mutePressed=false;
         backgroundmusic.play();
       }
@@ -341,8 +327,24 @@ void draw(){
   crab.display();
   crab.move();
   crab.legsMove();
+  
+  if (girl.x<=crab.x+25 && girl.x>=crab.x-25 && girl.y<=crab.y+20 && girl.y>=crab.y-20) {
+    user.decreaseHealth();
+    girl.x=400;
+    girl.y=654;
+  }
+  if (boy.x<=crab.x+25 && boy.x>=crab.x-25 && boy.y<=crab.y+20 && boy.y>=crab.y-20) {
+    user.decreaseHealth();
+    boy.x=400;
+    boy.y=654;
   }
   
+  }
+  //test user
+     imageMode(CENTER);
+     user.countTime();
+     user.displayHealth();
+     user.displayTime();
  }
  
 }
