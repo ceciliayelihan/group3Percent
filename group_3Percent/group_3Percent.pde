@@ -458,7 +458,7 @@ void draw(){
             boy.y=654;
             girl.x=400;
             girl.y=654;
-            userName=""
+            userName="";
             }
         }
   }
@@ -501,7 +501,7 @@ void draw(){
             image(start,325,370,150,60);
             image(score,325,475,150,60);
             image(girlt,255,370,60,60);
-            userName=""
+            userName="";
           }
         }
   }
