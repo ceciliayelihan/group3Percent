@@ -228,7 +228,6 @@ void draw(){
       girl.move();  
       //car girl interaction
       if ((car1UpInteractGirl() == true) || (car2UpInteractGirl() == true) || (car3UpInteractGirl() == true) || (car4UpInteractGirl() == true)||(car1DownInteractGirl() == true) || (car2DownInteractGirl() == true) || (car3DownInteractGirl() == true) || (car4DownInteractGirl() == true)){
-        System.out.println("hit");
         girl.x = 400;
         girl.y = 654; 
         user.decreaseHealth();
@@ -242,7 +241,6 @@ void draw(){
           }
         }
         if (on==true){
-          /*Add score*/
            girl.x+=b2.speed;}
         if (on==false){
           user.decreaseHealth();
@@ -286,7 +284,6 @@ void draw(){
           }
         }
         if (on==true){
-          /*Add score*/
            boy.x+=b2.speed;}
         if (on==false){
           user.decreaseHealth();
@@ -301,7 +298,6 @@ void draw(){
           }
         }
         if (on==true){
-          /*Add score*/
            boy.x+=b1.speed;}
         if (on==false){
           user.decreaseHealth();
@@ -309,13 +305,14 @@ void draw(){
           boy.y=286;}
       }
       if (boy.y==b0.y-46){
+        levelup = new SoundFile(this,"levelup.mp3");
+        levelup.play();
         user.lvlup();
         set=true;
         boy.x=400;
         boy.y=654;
       }
      if ((car1UpInteractBoy() == true) || (car2UpInteractBoy() == true) || (car3UpInteractBoy() == true) || (car4UpInteractBoy() == true)||(car1DownInteractBoy() == true) || (car2DownInteractBoy() == true) || (car3DownInteractBoy() == true) || (car4DownInteractBoy() == true)){
-        System.out.println("hit");
         boy.x = 400;
         boy.y = 654; 
         user.decreaseHealth();
