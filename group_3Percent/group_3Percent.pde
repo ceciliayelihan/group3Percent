@@ -14,7 +14,7 @@ Boolean defeat =false;
 Boolean wins =false;
 int lvl,t1;
 String userName = "";
-SoundFile backgroundmusic, levelup, car, drop;
+SoundFile backgroundmusic, levelup/*, car, drop*/;
 User user;
 CrabLegs crab;
 Car car1, car3, car2, car4;
@@ -384,6 +384,12 @@ void draw(){
         move=false;
         PImage loss=loadImage("gameover.png");
         PImage restart=loadImage("restart.png");
+        
+        fill(255);
+        user.countPoints();
+        textSize(50);
+        text("SCORE: "+user.points,275,150);
+        
         image(loss,400,300,200,100);
         image(restart,400,500,300,100);
         ///////////display SCORE//////////////////////////
@@ -424,6 +430,10 @@ void draw(){
         fill(0);
         rect(0,0,800,700);
         move=false;
+        fill(255);
+        user.countPoints();
+        textSize(50);
+        text("SCORE: "+user.points,275,150);
         PImage win=loadImage("win.png");
         PImage restart=loadImage("restart.png");
         image(win,400,300,200,80);
