@@ -6,7 +6,7 @@ class CrabLegs extends Crabs {
   }
   //method to move legs
   void legsMove() {
-    if (z<=20) {
+    if (z<=6) {
       z++;
     } else {
       z=0;
