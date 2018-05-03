@@ -39,7 +39,7 @@ class User{
   }
   
   void countPoints() {
-    this.points = 1000*this.level + 1/this.time*100 + 100*this.health;
+    this.points = 1000*this.level - this.time + 100*this.health;
   }
   
   void reset() {
