@@ -10,6 +10,8 @@ Boolean start_btn = false; //start or scoreboard in main screen
 Boolean scoreboard_btn = false;//start or scoreboard in main screen
 Boolean go_btn = false;
 Boolean on = false, set=true, mutePressed=false;
+Boolean defeat =false;
+Boolean wins =false;
 int lvl,t1;
 String userName = "";
 SoundFile backgroundmusic;
@@ -171,9 +173,8 @@ void draw(){
     sound.resize(57,57);
     mute.resize(57,57);
     PImage level1 = loadImage("level1.png");
-    level1.resize(230,60);
-    image(level1, 520, 630);
-    
+    PImage level2 = loadImage("level2.png");
+    PImage level3 = loadImage("level3.png");    
     //// pause and mute /////
     imageMode(CENTER);
     if (mutePressed == false) {
@@ -186,20 +187,42 @@ void draw(){
       }
   
     //level change
-    if (user.level==1 && set==true){
-      b0 = new Boat(0,56,-5,leaf,120,46);
-      b1 = new Boat(0,102,5,boat,120,46);
-      b2 = new Boat(800,148,-5,leaf,120,46);
-      b3 = new Boat(0,194,5,boat,120,46);
-      b4 = new Boat(800,240,-5,leaf,120,46);
-      set=false; }
-    if (user.level==2 && set==true){
-      b0 = new Boat(0,56,-10,leaf,120,46);
-      b1 = new Boat(0,102,10,boat,120,46);
-      b2 = new Boat(800,148,-10,leaf,120,46);
-      b3 = new Boat(0,194,10,boat,120,46);
-      b4 = new Boat(800,240,-10,leaf,120,46);
-      set=false; }
+    if (user.level==1){
+      imageMode(CORNER);
+      level1.resize(230,60);
+      image(level1, 520, 630);
+      if (set ==true){
+        b0 = new Boat(0,56,-5,leaf,120,46);
+        b1 = new Boat(0,102,5,boat,120,46);
+        b2 = new Boat(800,148,-5,leaf,120,46);
+        b3 = new Boat(0,194,5,boat,120,46);
+        b4 = new Boat(800,240,-5,leaf,120,46);
+        set=false; }
+    }
+    if (user.level==2){
+      imageMode(CORNER);
+      level2.resize(230,60);
+      image(level2, 520, 630);
+      if (set==true){
+        b0 = new Boat(0,56,-10,leaf,120,46);
+        b1 = new Boat(0,102,10,boat,120,46);
+        b2 = new Boat(800,148,-10,leaf,120,46);
+        b3 = new Boat(0,194,10,boat,120,46);
+        b4 = new Boat(800,240,-10,leaf,120,46);
+        set=false; }
+    }
+    if (user.level==3){
+      imageMode(CORNER);
+      level3.resize(230,60);
+      image(level3, 520, 630);
+      if (set==true){
+        b0 = new Boat(0,56,-10,leaf,120,46);
+        b1 = new Boat(0,102,10,boat,120,46);
+        b2 = new Boat(800,148,-10,leaf,120,46);
+        b3 = new Boat(0,194,10,boat,120,46);
+        b4 = new Boat(800,240,-10,leaf,120,46);
+        set=false; }
+    }
     
     ///////display boat///////////
     b0.display();
@@ -221,7 +244,12 @@ void draw(){
     car2.move();
     car4.display();
     car4.move();
-    
+    if (user.health==0){
+      defeat=true;
+    }
+    if (user.level==4){
+      wins=true;
+    }
     ////////girl interection
     if(girltf ==true){
       girl.display();
@@ -343,6 +371,82 @@ void draw(){
      user.displayHealth();
      user.displayTime();
  }
+  if (defeat==true){
+        fill(0);
+        rect(0,0,800,700);
+        move=false;
+        PImage loss=loadImage("loss.png");
+        PImage restart=loadImage("restart.png");
+        image(loss,400,300,200,100);
+        image(restart,400,500,300,100);
+        ///////////display SCORE//////////////////////////
+        if (mouseX>250&&mouseX<550&&mouseY>450&&mouseY<550){
+          if (mousePressed==true){
+            move =false; /*level one move?*/
+            girltf=true;/*choose character in the beginning */
+            start_btn = false; //start or scoreboard in main screen
+            scoreboard_btn = false;//start or scoreboard in main screen
+            go_btn = false;
+            on = false;
+            set=true;
+            defeat =false;
+            wins=false;
+            imageMode(CORNER);
+            PImage start =loadImage("start.png");
+            PImage score =loadImage("score.png");
+            PImage girlt =loadImage("girl002.png");
+            PImage title =loadImage("title.png");
+            PImage road =loadImage("road.png");
+            PImage life =loadImage("life.png");
+            image(road,0,0,800,700);
+            image(life,50,50,50,50);
+            image(life,110,50,50,50);
+            image(life,170,50,50,50);
+            image(title,180,200,450,90);
+            image(start,325,370,150,60);
+            image(score,325,475,150,60);
+            image(girlt,255,370,60,60);
+          }
+        }
+  }
+  if (wins==true){
+        fill(0);
+        rect(0,0,800,700);
+        move=false;
+        PImage win=loadImage("win.png");
+        PImage restart=loadImage("restart.png");
+        image(win,400,300,200,80);
+        image(restart,400,500,300,100);
+        ///////////display SCORE//////////////////////////
+        if (mouseX>250&&mouseX<550&&mouseY>450&&mouseY<550){
+          if (mousePressed==true){
+            move =false; /*level one move?*/
+            girltf=true;/*choose character in the beginning */
+            start_btn = false; //start or scoreboard in main screen
+            scoreboard_btn = false;//start or scoreboard in main screen
+            go_btn = false;
+            on = false;
+            set=true;
+            defeat =false;
+            wins=false;
+            imageMode(CORNER);
+            PImage start =loadImage("start.png");
+            PImage score =loadImage("score.png");
+            PImage girlt =loadImage("girl002.png");
+            PImage title =loadImage("title.png");
+            PImage road =loadImage("road.png");
+            PImage life =loadImage("life.png");
+            image(road,0,0,800,700);
+            image(life,50,50,50,50);
+            image(life,110,50,50,50);
+            image(life,170,50,50,50);
+            image(title,180,200,450,90);
+            image(start,325,370,150,60);
+            image(score,325,475,150,60);
+            image(girlt,255,370,60,60);
+          }
+        }
+  }
  
 }
 /////////////Car Boolean///////do not enter/////////////////////
