@@ -12,6 +12,8 @@ Boolean go_btn = false;
 Boolean on = false, set=true, mutePressed=false;
 Boolean defeat =false;
 Boolean wins =false;
+Boolean keys = false;
+Boolean keya = false;
 int lvl,t1;
 String userName = "";
 SoundFile backgroundmusic, levelup/*, car, drop*/;
@@ -222,20 +224,23 @@ void draw(){
         b2 = new Boat(800,148,-10,leaf,120,46);
         b3 = new Boat(0,194,10,boat,120,46);
         b4 = new Boat(800,240,-10,leaf,120,46);
+        keys=true;
         set=false; }
     }
     
     ///////display boat///////////
-    b0.display();
-    b0.move();
-    b1.display();
-    b1.move();
-    b2.display();
-    b2.move();
-    b3.display();
-    b3.move();
-    b4.display();
-    b4.move();
+    if (keya==false&&keys==true || keys==false){
+          b0.display();
+          b0.move();
+          b1.display();
+          b1.move();
+          b2.display();
+          b2.move();
+          b3.display();
+          b3.move();
+          b4.display();
+          b4.move();
+    }
     //////display cars//////////
     car1.display();
     car1.move();
@@ -258,7 +263,11 @@ void draw(){
       //car girl interaction
       if ((car1UpInteractGirl() == true) || (car2UpInteractGirl() == true) || (car3UpInteractGirl() == true) || (car4UpInteractGirl() == true)||(car1DownInteractGirl() == true) || (car2DownInteractGirl() == true) || (car3DownInteractGirl() == true) || (car4DownInteractGirl() == true)){
         girl.x = 400;
-        girl.y = 654; 
+        if (keys==false){
+          girl.y = 654; }
+        if (keys==true&&keya==true){
+          girl.y = 286;
+        }
         //car.play();
         user.decreaseHealth();
       }
@@ -303,6 +312,17 @@ void draw(){
         girl.x=400;
         girl.y=654;
       }
+      if (girl.y==286&&keys==true){
+        keya=true;
+      } 
+      if (keya==true&&keys==true){
+        imageMode(CENTER);
+        PImage keyi=loadImage("key.png");
+        image(keyi, 200,654,30,60);}
+      if (girl.y==654 &&girl.x==200&&keya==true&&keys==true){
+          keys=false;
+          keya=false;
+        }        
     }
     //////////boy interection
     if(girltf ==false){
@@ -348,10 +368,25 @@ void draw(){
       }
      if ((car1UpInteractBoy() == true) || (car2UpInteractBoy() == true) || (car3UpInteractBoy() == true) || (car4UpInteractBoy() == true)||(car1DownInteractBoy() == true) || (car2DownInteractBoy() == true) || (car3DownInteractBoy() == true) || (car4DownInteractBoy() == true)){
         boy.x = 400;
-        boy.y = 654; 
+        if (keys==false){
+          boy.y = 654; }
+        if (keys==true&&keya==true){
+          boy.y = 286;
+        }
         //car.play();
         user.decreaseHealth();
       }
+      if (boy.y==286&&keys==true){
+        keya=true;
+      } 
+      if (keya==true&&keys==true){
+        imageMode(CENTER);
+        PImage keyi=loadImage("key.png");
+        image(keyi, 200,654,30,60);}
+      if (girl.y==654 &&boy.x==200&&keya==true&&keys==true){
+          keys=false;
+          keya=false;
+        }       
     }
 
   ///crab for level 2////
