@@ -14,8 +14,7 @@ Boolean defeat =false;
 Boolean wins =false;
 int lvl,t1;
 String userName = "";
-SoundFile backgroundmusic;
-SoundFile levelup;
+SoundFile backgroundmusic, levelup, car, drop;
 User user;
 CrabLegs crab;
 Car car1, car3, car2, car4;
@@ -67,6 +66,8 @@ void setup() {
 }
 
 void draw(){
+  //car = new SoundFile(this,"car.mp3");
+  //drop = new SoundFile(this,"drop.mp3");
   ////////scoreboard//////////////////////////////////
    if (scoreboard_btn ==false&&start_btn==false&&mouseX>325&&mouseX<(325+150)&&mouseY<(475+60)&&mouseY>475){//press score table in start
        if (mousePressed == true) {
@@ -258,6 +259,7 @@ void draw(){
       if ((car1UpInteractGirl() == true) || (car2UpInteractGirl() == true) || (car3UpInteractGirl() == true) || (car4UpInteractGirl() == true)||(car1DownInteractGirl() == true) || (car2DownInteractGirl() == true) || (car3DownInteractGirl() == true) || (car4DownInteractGirl() == true)){
         girl.x = 400;
         girl.y = 654; 
+        //car.play();
         user.decreaseHealth();
       }
       //boat girl interect
@@ -271,6 +273,7 @@ void draw(){
         if (on==true){
            girl.x+=b2.speed;}
         if (on==false){
+          //drop.play();
           user.decreaseHealth();
           girl.x=400;
           girl.y=286;}
@@ -286,6 +289,7 @@ void draw(){
           /*Add score*/
            girl.x+=b1.speed;}
         if (on==false){
+          //drop.play();
           user.decreaseHealth();
           girl.x=400;
           girl.y=286;}
@@ -314,6 +318,7 @@ void draw(){
         if (on==true){
            boy.x+=b2.speed;}
         if (on==false){
+          //drop.play();
           user.decreaseHealth();
           boy.x=400;
           boy.y=286;}
@@ -328,6 +333,7 @@ void draw(){
         if (on==true){
            boy.x+=b1.speed;}
         if (on==false){
+          //drop.play();
           user.decreaseHealth();
           boy.x=400;
           boy.y=286;}
@@ -343,6 +349,7 @@ void draw(){
      if ((car1UpInteractBoy() == true) || (car2UpInteractBoy() == true) || (car3UpInteractBoy() == true) || (car4UpInteractBoy() == true)||(car1DownInteractBoy() == true) || (car2DownInteractBoy() == true) || (car3DownInteractBoy() == true) || (car4DownInteractBoy() == true)){
         boy.x = 400;
         boy.y = 654; 
+        //car.play();
         user.decreaseHealth();
       }
     }
@@ -375,7 +382,7 @@ void draw(){
         fill(0);
         rect(0,0,800,700);
         move=false;
-        PImage loss=loadImage("loss.png");
+        PImage loss=loadImage("gameover.png");
         PImage restart=loadImage("restart.png");
         image(loss,400,300,200,100);
         image(restart,400,500,300,100);
