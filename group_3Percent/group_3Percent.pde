@@ -219,11 +219,11 @@ void draw(){
       level3.resize(230,60);
       image(level3, 520, 630);
       if (set==true){
-        b0 = new Boat(0,56,-10,leaf,120,46);
-        b1 = new Boat(0,102,10,boat,120,46);
-        b2 = new Boat(800,148,-10,leaf,120,46);
-        b3 = new Boat(0,194,10,boat,120,46);
-        b4 = new Boat(800,240,-10,leaf,120,46);
+        b0 = new Boat(0,56,-15,leaf,120,46);
+        b1 = new Boat(0,102,15,boat,120,46);
+        b2 = new Boat(800,148,-15,leaf,120,46);
+        b3 = new Boat(0,194,15,boat,120,46);
+        b4 = new Boat(800,240,-15,leaf,120,46);
         keys=true;
         set=false; }
     }
